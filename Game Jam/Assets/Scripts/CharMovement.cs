@@ -12,6 +12,8 @@ public class CharMovement : MonoBehaviour
 
     public Animator animator;
 
+    public Animator playerAnimator;
+
     public Rigidbody rb;
     public int maxHealth = 100;
     public int currenthealth;
@@ -22,7 +24,6 @@ public class CharMovement : MonoBehaviour
     GameObject GameManager;
     float dashSpeed = 1;
     bool dashAvailable=true;
-    public Animator playerAnimator;
 
     private void Start()
     {

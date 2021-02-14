@@ -20,18 +20,33 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         GetComponent<UnityEngine.AI.NavMeshAgent>().speed= GetComponent<UnityEngine.AI.NavMeshAgent>().speed* GameManager.GetComponent<GameManager>().waveIndex;
+
         GetComponent<UnityEngine.AI.NavMeshAgent>().destination = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
-        if (child.GetComponent<Enemy>().health <= 0)
+
+
+        if (child.GetComponent<LargeEnemy>().health <= 0)
+        {
+            Debug.Log("Ta jalando");
+            child.SetActive(false);
+            if (child != null)
+            {
+                StartCoroutine(Death());
+            }
+            Destroy(child);
+
+        }
+
+        if (child.GetComponent<Enemy>().health <= 0 )
         {
             child.SetActive(false);
             if (child != null)
             {
-
                 StartCoroutine(Death());
             }
             Destroy(child);
             
         }
+        
     }
     IEnumerator Death()
     {

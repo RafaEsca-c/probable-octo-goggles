@@ -16,8 +16,13 @@ public class MouseFollow : MonoBehaviour
     public float rot_z;
     public Camera gunCamera;
 
+
     public float waitTime;
     float timer = 0;
+
+
+    public AudioSource audioSource;
+    public AudioClip gun;
 
     GameObject GameManager;
 

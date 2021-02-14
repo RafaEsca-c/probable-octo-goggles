@@ -52,10 +52,15 @@ public class Bullet : MonoBehaviour
         Debug.Log("IsHitting");
         Destroy(this.gameObject);
          Enemy enemy = hitInfo.GetComponent<Enemy>();
-         if (enemy != null)
+         if (enemy != null )
          {
              enemy.TakeDamage(damage);
          }
-     }
+        LargeEnemy largeEnemy = hitInfo.GetComponent<LargeEnemy>();
+        if (largeEnemy != null)
+        {
+            largeEnemy.TakeDamage(damage);
+        }
+    }
 
 }
