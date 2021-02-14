@@ -22,6 +22,7 @@ public class CharMovement : MonoBehaviour
     GameObject GameManager;
     float dashSpeed = 1;
     bool dashAvailable=true;
+    public Animator playerAnimator;
 
     private void Start()
     {
@@ -42,12 +43,25 @@ public class CharMovement : MonoBehaviour
                 movement = new Vector3(0, 0, 0);
             }
         }
+        else
+        {
+            movement.x = 0;
+            movement.z = 0;
+        }
         if (Input.GetButton("Dash") && dashAvailable)
         {
             Debug.Log("Dashing");
             StartCoroutine(Dash());
             dashAvailable = false;
 
+        }
+        if(movement.x!=0 || movement.z != 0)
+        {
+            playerAnimator.SetBool("isMoving",true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isMoving", false);
         }
     }
 

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [Header("Players's Current Status")]
     public float playerHealth;
     public int playerMoney;
-    public bool playerVulnerable;
+    public bool playerVulnerable=true;
 
     [Header("WaveManagement")]
     public int enemyOnScreen;
@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour
     public float waveIndex;
     public float waveIndexAddition=.2f;
 
+
+    public Animator playerAnimator;
+    public GameObject player;
+    public GameObject playerDeath;
 
     [Serializable]
     class SaveData
@@ -92,16 +96,38 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+
+        if (playerHealth <= 0)
+        {
+            isPlaying = false;
+            playerDeath.SetActive(true);
+            player.SetActive(false);
+        }
+
+
+
+
+
+
+
+        if (playerHealth <= 0)
+        {
+            playerAnimator.SetBool("isAlive", false);
+        }
+        else
+        {
+            playerAnimator.SetBool("isAlive", true);
+        }
+        
         enemyOnScreen = GameObject.FindGameObjectsWithTag("Enemy").Length;
         if (Input.GetKeyDown("i"))
         {
             Debug.Log("Saving...");
             SaveGame();
         }
-        if (playerHealth <= 0)
-        {
-            isPlaying = false;
-        }
+
         if (playerHealth >= 100)
         {
             playerHealth = 100;

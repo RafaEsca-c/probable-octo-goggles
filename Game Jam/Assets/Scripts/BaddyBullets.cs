@@ -15,6 +15,8 @@ public class BaddyBullets : MonoBehaviour
     /*public GameObject gun;
     public GameObject impact;*/
 
+
+
     // Start is called before the first frame update
     void Start()
     {

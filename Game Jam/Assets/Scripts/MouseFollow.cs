@@ -71,7 +71,7 @@ public class MouseFollow : MonoBehaviour
 
     void Fire()
     {
-        Instantiate(bullet, firePoint.position, transform.rotation);
+        Instantiate(bullet, firePoint.position, firePoint.transform.rotation);
     }
 
 
