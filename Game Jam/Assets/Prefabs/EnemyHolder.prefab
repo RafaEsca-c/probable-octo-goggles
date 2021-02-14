@@ -202,6 +202,7 @@ MonoBehaviour:
   bullet: {fileID: 905758572785119760, guid: c3f6c4f749fc9c94b9584782f8ce7ac5, type: 3}
   waitTime: 1
   timer: 0
+  isDamageOpen: 1
 --- !u!135 &2011744118207671244
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ public class BaddyBullets : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         //defaultSprite = spriteRend.sprite;
 
         StartCoroutine(TimeDestruction());

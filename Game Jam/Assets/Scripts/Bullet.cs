@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
     public GameObject impact;*/
 
     // Start is called before the first frame update
+
     void Start()
     {
         //defaultSprite = spriteRend.sprite;
@@ -48,7 +49,8 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider hitInfo)
      {
-         
+        Debug.Log("IsHitting");
+        Destroy(this.gameObject);
          Enemy enemy = hitInfo.GetComponent<Enemy>();
          if (enemy != null)
          {

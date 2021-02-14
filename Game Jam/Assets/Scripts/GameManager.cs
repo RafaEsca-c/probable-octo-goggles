@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [Header("Players's Current Status")]
     public float playerHealth;
     public int playerMoney;
+    public bool playerVulnerable;
 
     [Header("WaveManagement")]
     public int enemyOnScreen;
@@ -114,7 +115,10 @@ public class GameManager : MonoBehaviour
 
     public void PlayerTakeDamage(float damage)
     {
-        playerHealth -= damage;
+        if (playerVulnerable)
+        {
+            playerHealth -= damage;
+        }
     }
     public void CompleteWave()
     {

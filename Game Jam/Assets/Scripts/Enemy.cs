@@ -13,10 +13,13 @@ public class Enemy : MonoBehaviour
     [SerializeField]float timer = 0;
 
     GameObject GameManager;
+    [SerializeField]bool isDamageOpen=true;
+
     // Start is called before the first frame update
     void Start()
     {
         GameManager = GameObject.Find("GameManager");
+        health = health * GameManager.GetComponent<GameManager>().waveIndex;
     }
 
     // Update is called once per frame
@@ -35,16 +38,29 @@ public class Enemy : MonoBehaviour
                 Fire();
             }
         }
-        health = waitTime * GameManager.GetComponent<GameManager>().waveIndex;
+        
     }
     public void TakeDamage(int Damage)
     {
-        health -= Damage;
+        if (isDamageOpen)
+        {
+            health =health- Damage;
+            isDamageOpen = false;
+            StartCoroutine (DamageBoost());
+        }
     }
 
 
+    IEnumerator DamageBoost()
+    {
+        Debug.Log("Waiting");
+        yield return new WaitForSeconds(.1f);
+        isDamageOpen = true;
+    }
+
     void Fire()
     {
+        
         Instantiate(bullet, firePoint.position, firePoint.transform.rotation);
     }
 }

@@ -20,6 +20,8 @@ public class CharMovement : MonoBehaviour
     private float speed;
 
     GameObject GameManager;
+    float dashSpeed = 1;
+    bool dashAvailable=true;
 
     private void Start()
     {
@@ -40,6 +42,13 @@ public class CharMovement : MonoBehaviour
                 movement = new Vector3(0, 0, 0);
             }
         }
+        if (Input.GetButton("Dash") && dashAvailable)
+        {
+            Debug.Log("Dashing");
+            StartCoroutine(Dash());
+            dashAvailable = false;
+
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -56,7 +65,26 @@ public class CharMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime*dashSpeed);
 
     }
+    IEnumerator Dash()
+    {
+        Debug.Log(dashSpeed);
+        dashSpeed = 3;
+        Debug.Log(dashSpeed);
+        GameManager.GetComponent<GameManager>().playerVulnerable = false;
+        yield return new WaitForSeconds(.3f);
+
+        dashSpeed = 1;
+        GameManager.GetComponent<GameManager>().playerVulnerable = true;
+        Debug.Log(dashSpeed);
+
+        yield return new WaitForSeconds(.3f);
+
+        dashAvailable = true;
+
+    }
+
+
 }
