@@ -6,7 +6,6 @@ public class Enemy : MonoBehaviour
 {
     public Transform firePoint;
     public float health=100;
-    public GameObject deathParticles;
     public GameObject bullet; 
     [Header("Wait Time Between Shots")]
     public float waitTime;

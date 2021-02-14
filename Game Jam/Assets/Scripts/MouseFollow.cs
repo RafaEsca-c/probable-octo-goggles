@@ -30,7 +30,7 @@ public class MouseFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.GetComponent<GameManager>().isPlaying)
+        if (GameManager.GetComponent<GameManager>().isPlaying && !GameManager.GetComponent<GameManager>().isPaused)
         {
             Vector3 diff = gunCamera.ScreenToWorldPoint(Input.mousePosition) - transform.position;
             diff.Normalize();

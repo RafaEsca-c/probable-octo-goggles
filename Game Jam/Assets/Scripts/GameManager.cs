@@ -10,10 +10,14 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
 
+
     [Header("Players's Current Status")]
     public float playerHealth;
     public int playerMoney;
     public bool playerVulnerable=true;
+    public float damageBoost=1f;
+
+
 
     [Header("WaveManagement")]
     public int enemyOnScreen;
@@ -30,8 +34,15 @@ public class GameManager : MonoBehaviour
     public Animator playerAnimator;
     public GameObject player;
     public GameObject playerDeath;
+    public GameObject gun;
 
-    [Serializable]
+    [Header("UI References")]
+    public bool isPaused=false;
+    public Image lifeGauge;
+    public GameObject pausePanel;
+    public GameObject lifeBar;
+    public GameObject optionPanel;
+
     class SaveData
     {
         public int money;
@@ -50,6 +61,9 @@ public class GameManager : MonoBehaviour
         bf.Serialize(file, data);
         file.Close();
         Debug.Log("Game data saved!");
+        playerDeath.SetActive(false);
+        player.SetActive(true);
+        gun.SetActive(true);
     }
     void ResetData()
     {
@@ -96,7 +110,25 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("Pause"))
+        {
+            isPaused = !isPaused;
+        }
 
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+            pausePanel.SetActive(true);
+            lifeBar.SetActive(false);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            pausePanel.SetActive(false);
+            lifeBar.SetActive(true);
+        }
+
+        lifeGauge.fillAmount = playerHealth * .01f;
 
 
         if (playerHealth <= 0)
@@ -104,6 +136,7 @@ public class GameManager : MonoBehaviour
             isPlaying = false;
             playerDeath.SetActive(true);
             player.SetActive(false);
+            gun.SetActive(false);
         }
 
 
@@ -144,7 +177,14 @@ public class GameManager : MonoBehaviour
         if (playerVulnerable)
         {
             playerHealth -= damage;
+            StartCoroutine(DamageBoost());
         }
+    }
+    IEnumerator DamageBoost()
+    {
+        playerVulnerable = false;
+        yield return new WaitForSeconds(damageBoost);
+        playerVulnerable = true;
     }
     public void CompleteWave()
     {
@@ -153,4 +193,24 @@ public class GameManager : MonoBehaviour
         isPlaying = false;
         Debug.Log("Wave Completed!!!");
     }
+
+    public void Resume()
+    {
+        isPaused = !isPaused;
+    }
+
+    public void Options()
+    {
+        optionPanel.SetActive(true);
+
+
+    }
+    public void Back()
+    {
+        optionPanel.SetActive(false);
+
+
+
+    }
+
 }

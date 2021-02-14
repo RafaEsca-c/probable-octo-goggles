@@ -88,7 +88,7 @@ public class CharMovement : MonoBehaviour
         dashSpeed = 3;
         Debug.Log(dashSpeed);
         GameManager.GetComponent<GameManager>().playerVulnerable = false;
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.5f);
 
         dashSpeed = 1;
         GameManager.GetComponent<GameManager>().playerVulnerable = true;
